@@ -1,0 +1,16 @@
+app:
+  replicas: 1
+  image: charantangisetti/flask-application:latest
+  env: dev
+  compute:
+    requests:
+      cpu: 0.2
+      memory: 500Mi
+    limits:
+      cpu: 0.2
+      memory: 500Mi
+
+hpa:
+  enabled: false
+  minReplicas: 5
+  maxReplicas: 10

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  namespace: dev
+  labels:
+    {{- include "labels" . | nindent 4 }}
+
+spec:
+  replicas: {{ .Values.app.replicas }}
+
+  selector:
+    matchLabels:
+      {{- include "labels" . | nindent 6 }} 
+
+  template:
+    metadata:
+      labels:
+        {{- include "labels" . | nindent 8 }} 
+    spec:
+      containers:
+      - name: flask-app
+        image: {{ .Values.app.image }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: flask-config
+        - secretRef:
+            name: flask-secret
+
+        resources:
+        {{- toYaml .Values.app.compute | nindent 12 }}
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
