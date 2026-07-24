@@ -95,7 +95,7 @@ jobs:
 
   production:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: production
 
     steps:
