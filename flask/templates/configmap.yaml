@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: flask-config
-  namespace: dev
+  namespace: {{ .Release.Namespace }}
 data:
   APP_NAME: "SSB DevOps Assignment"
   ENVIRONMENT: "dev"
