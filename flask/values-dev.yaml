@@ -14,3 +14,6 @@ hpa:
   enabled: false
   minReplicas: 5
   maxReplicas: 10
+
+ingress:
+  host: dev.flask.local
