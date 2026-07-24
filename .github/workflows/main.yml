@@ -74,8 +74,14 @@ jobs:
       - name: Helm Validation
         run: |
           cd flask
-          helm lint .
-          helm template flask .
+      
+          helm lint . -f values-dev.yaml
+          helm lint . -f values-qa.yaml
+          helm lint . -f values-prod.yaml
+      
+          helm template flask . -f values-dev.yaml
+          helm template flask . -f values-qa.yaml
+          helm template flask . -f values-prod.yaml
 
       - name: Deploy to Dev
         run: |
