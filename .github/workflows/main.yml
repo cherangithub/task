@@ -30,14 +30,6 @@ jobs:
       #   run: |
       #     cd app
       #     pytest
-     - name: Verify Sonar Token
-        run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "SONAR_TOKEN is empty"
-            exit 1
-          else
-            echo "SONAR_TOKEN exists"
-          fi
           
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
